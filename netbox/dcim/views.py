@@ -354,8 +354,15 @@ class RackView(generic.ObjectView):
             peer_racks = peer_racks.filter(group=instance.group)
         else:
             peer_racks = peer_racks.filter(group__isnull=True)
-        next_rack = peer_racks.filter(name__gt=instance.name).order_by('name').first()
-        prev_rack = peer_racks.filter(name__lt=instance.name).order_by('-name').first()
+
+        # Determine ordering
+        sort_by_name = bool(request.GET.get('sort_by_name', False))
+        if sort_by_name:
+            next_rack = peer_racks.filter(name__gt=instance.name).order_by('name').first()
+            prev_rack = peer_racks.filter(name__lt=instance.name).order_by('-name').first()
+        else:
+            next_rack = peer_racks.filter(facility_id__gt=instance.facility_id).order_by('facility_id').first()
+            prev_rack = peer_racks.filter(facility_id__lt=instance.facility_id).order_by('-facility_id').first()
 
         reservations = RackReservation.objects.restrict(request.user, 'view').filter(rack=instance)
         power_feeds = PowerFeed.objects.restrict(request.user, 'view').filter(rack=instance).prefetch_related(
