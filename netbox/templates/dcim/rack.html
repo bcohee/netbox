@@ -36,8 +36,8 @@
     <div class="pull-right noprint">
         {% plugin_buttons object %}
         <div class="btn-group" role="group">
-            <a href="{% url 'dcim:rack' %}{% querystring request sort_by_name=None %}" class="btn btn-default{% if not sort_by_name %} active{% endif %}">Facility ID</a>
-            <a href="{% url 'dcim:rack' %}{% querystring request sort_by_name='true' %}" class="btn btn-default{% if sort_by_name %} active{% endif %}">Name</a>
+            <a href="{% url 'dcim:rack' pk=None %}{% querystring request sort_by_name=None %}" class="btn btn-default{% if not sort_by_name %} active{% endif %}">Facility ID</a>
+            <a href="{% url 'dcim:rack' pk=None %}{% querystring request sort_by_name='true' %}" class="btn btn-default{% if sort_by_name %} active{% endif %}">Name</a>
         </div>
         <a {% if prev_rack %}href="{% url 'dcim:rack' pk=prev_rack.pk %}"{% else %}disabled="disabled"{% endif %} class="btn btn-primary">
             <span class="mdi mdi-chevron-left" aria-hidden="true"></span> Previous Rack
