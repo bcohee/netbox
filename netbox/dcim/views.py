@@ -376,6 +376,7 @@ class RackView(generic.ObjectView):
             'reservations': reservations,
             'power_feeds': power_feeds,
             'nonracked_devices': nonracked_devices,
+            'sort_by_name': sort_by_name,
             'next_rack': next_rack,
             'prev_rack': prev_rack,
         }
